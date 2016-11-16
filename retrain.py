@@ -223,7 +223,8 @@ if __name__ == "__main__":
 	
 	session = tf.Session()	
 
-	#precalc_categories(session, image_data_tensor, precalc_tensor, image_names, categories, images_dir, precalc_dir)
+	# create all precalculated values
+	precalc_categories(session, image_data_tensor, precalc_tensor, image_names, categories, images_dir, precalc_dir)
 
 	class_count = len(image_names.keys())
 
