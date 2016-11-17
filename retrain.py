@@ -182,23 +182,24 @@ def precalc_categories(session, image_data_tensor, precalc_tensor, images, categ
 
 		image_dict = images[category]
 
-		for image in image_dict["training"]:
+		for key in image_dict.keys():
 
-			full_image_path = os.path.join(images_dir, category, image)
-			
-			# use tensorflow's image opening library
-			image_contents = gfile.FastGFile(full_image_path, 'rb').read()
-			
-			precalc_name = os.path.join(precalc_dir, category, image) + ".txt"
-        		
-			if os.path.isfile(precalc_name):
-                		print("Precalculated file: {} exists".format(image))
+			for image in image_dict[key]:
 
-        		else:
-                		precalc_file =  open(precalc_name, 'w')
-				values = precalc_image(image_contents, session, image_data_tensor, precalc_tensor)
-				precalc_file.write(','.join(str(x) for x in values))
-				print("Created precalculation for file: {}".format(image))
+				full_image_path = os.path.join(images_dir, category, image)
+				
+				# use tensorflow's image opening library
+				image_contents = gfile.FastGFile(full_image_path, 'rb').read()
+				
+				precalc_name = os.path.join(precalc_dir, category, image) + ".txt"
+					
+				if os.path.isfile(precalc_name):
+					print("Precalculated file: {} exists".format(image))
+				else:
+					precalc_file =  open(precalc_name, 'w')
+					values = precalc_image(image_contents, session, image_data_tensor, precalc_tensor)
+					precalc_file.write(','.join(str(x) for x in values))
+					print("Created precalculation for file: {}".format(image))
 
 if __name__ == "__main__":
 	args = get_args()
@@ -261,7 +262,7 @@ if __name__ == "__main__":
 			full_path = os.path.join(precalc_dir, category, filename) + '.txt'
 			precalc_file = open(full_path, 'r')
 			precalc_string = precalc_file.read()
-  			precalc_values = [float(x) for x in precalc_string.split(',')]
+			precalc_values = [float(x) for x in precalc_string.split(',')]
 			precalcs.append(precalc_values)
 
 			ground_truth = np.zeros(class_count, dtype=np.float32)
