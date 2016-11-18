@@ -262,7 +262,12 @@ if __name__ == "__main__":
 			full_path = os.path.join(precalc_dir, category, filename) + '.txt'
 			precalc_file = open(full_path, 'r')
 			precalc_string = precalc_file.read()
-			precalc_values = [float(x) for x in precalc_string.split(',')]
+			try:
+				precalc_values = [float(x) for x in precalc_string.split(',')]
+			except ValueError:
+				print("invalid precalc data for file: " + full_path)
+				pass
+
 			precalcs.append(precalc_values)
 
 			ground_truth = np.zeros(class_count, dtype=np.float32)
