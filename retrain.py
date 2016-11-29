@@ -1,4 +1,4 @@
-#! /usr/bin/env python2
+#! /usr/bin/env python3
 
 from tensorflow.python.framework import graph_util
 from tensorflow.python.framework import tensor_shape
@@ -110,11 +110,11 @@ def add_final_training_ops(class_count, final_tensor_name, bottleneck_tensor):
       logits = tf.matmul(bottleneck_input, layer_weights) + layer_biases
       #tf.histogram_summary('pre_activations', logits)
 
-  final_tensor = tf.nn.softmax(logits, name=final_tensor_name)
+  final_tensor = tf.nn.sigmoid(logits, name=final_tensor_name)
   #tf.histogram_summary('activations', final_tensor)
 
   with tf.name_scope('cross_entropy'):
-    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(
+    cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(
       logits, ground_truth_input)
     with tf.name_scope('total'):
       cross_entropy_mean = tf.reduce_mean(cross_entropy)
@@ -194,7 +194,11 @@ def precalc_categories(session, image_data_tensor, precalc_tensor, images, categ
 				precalc_name = os.path.join(precalc_dir, category, image) + ".txt"
 					
 				if os.path.isfile(precalc_name):
+<<<<<<< HEAD
+					pass#print("Precalculated file: {} exists".format(image))
+=======
 					print("Precalculated file: {} exists".format(image))
+>>>>>>> 05f9bdfe509f9ac4708b84947fcc205f98bc576a
 				else:
 					precalc_file =  open(precalc_name, 'w')
 					values = precalc_image(image_contents, session, image_data_tensor, precalc_tensor)
@@ -262,12 +266,16 @@ if __name__ == "__main__":
 			full_path = os.path.join(precalc_dir, category, filename) + '.txt'
 			precalc_file = open(full_path, 'r')
 			precalc_string = precalc_file.read()
+<<<<<<< HEAD
+			precalc_values = [float(x) for x in precalc_string.split(',')]
+=======
 			try:
 				precalc_values = [float(x) for x in precalc_string.split(',')]
 			except ValueError:
 				print("invalid precalc data for file: " + full_path)
 				pass
 
+>>>>>>> 05f9bdfe509f9ac4708b84947fcc205f98bc576a
 			precalcs.append(precalc_values)
 
 			ground_truth = np.zeros(class_count, dtype=np.float32)
