@@ -12,7 +12,7 @@ The default graph file is "meal_classifier" and the default label list is "meal_
 
 It is also possible to run the classifier on a single image.  Instead of the '-t' option, use `-i <filename>`
 
-To see a more detailed output containing the confidence scores, predicted, and actual classes on every image, use the `-v True` option.
+By default, the output for a test folder ('-t') will contain the summary results as specified in the project guidelines, and the output for a single image ('-i') will output the labels determined for that image. To see a more detailed output containing the confidence scores, predicted, and actual classes on every image, use the `-v True` option.
 
 Here is the complete list of command line arguments:
 
