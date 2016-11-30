@@ -194,11 +194,7 @@ def precalc_categories(session, image_data_tensor, precalc_tensor, images, categ
 				precalc_name = os.path.join(precalc_dir, category, image) + ".txt"
 					
 				if os.path.isfile(precalc_name):
-<<<<<<< HEAD
-					pass#print("Precalculated file: {} exists".format(image))
-=======
 					print("Precalculated file: {} exists".format(image))
->>>>>>> 05f9bdfe509f9ac4708b84947fcc205f98bc576a
 				else:
 					precalc_file =  open(precalc_name, 'w')
 					values = precalc_image(image_contents, session, image_data_tensor, precalc_tensor)
@@ -266,16 +262,13 @@ if __name__ == "__main__":
 			full_path = os.path.join(precalc_dir, category, filename) + '.txt'
 			precalc_file = open(full_path, 'r')
 			precalc_string = precalc_file.read()
-<<<<<<< HEAD
-			precalc_values = [float(x) for x in precalc_string.split(',')]
-=======
+
 			try:
 				precalc_values = [float(x) for x in precalc_string.split(',')]
 			except ValueError:
 				print("invalid precalc data for file: " + full_path)
 				pass
 
->>>>>>> 05f9bdfe509f9ac4708b84947fcc205f98bc576a
 			precalcs.append(precalc_values)
 
 			ground_truth = np.zeros(class_count, dtype=np.float32)
